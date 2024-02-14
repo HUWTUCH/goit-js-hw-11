@@ -36,8 +36,8 @@ export function getSearchPhotoAPI(userSymbol)  {
     safesearch: true
   }
 
-   const queryString = new URLSearchParams(listParameters).toString();
-   const BASE_URL = `https://pixabay.com/api?${queryString}`
+  const queryString = new URLSearchParams(listParameters).toString();
+  const BASE_URL = `https://pixabay.com/api?${queryString}`
 
-   return fetch(BASE_URL).then(res=>res.json());
+  return fetch(BASE_URL).then(res=>res.json());
 }

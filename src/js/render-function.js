@@ -1,5 +1,21 @@
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
+
 const refs = {
-  formEL: document.querySelector('.js-search-form')
+  formEL: document.querySelector('.js-search-form'),
+  listEL: document.querySelector('.gallery'),
+}
+
+const options = {
+  captions: true,
+  captionSelector: 'img',
+  captionType: 'attr',
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  animation: 250,
+  widthRatio: 0.9,
+  scaleImageToRatio: true,
 }
 function photoTemplate(data) {
   const markup = data.hits
@@ -11,9 +27,12 @@ function photoTemplate(data) {
           <p><b>Comments: </b>${data.comments}</p>
           <p><b>Downloads: </b>${data.download}</p>
           </li>`;
-
-  });
-  refs.formEL.insertAdjacentHTML('afterbegin', markup);
+  })
+  .join("")
+  refs.listEL.insertAdjacentHTML('afterbegin', markup);
+  const lightbox = new SimpleLightbox('.gallery a' , options);
+  lightbox.refresh();
+  refs.formEL.reset();
 
 }
 export function renderPhotoTemplate(data) {
