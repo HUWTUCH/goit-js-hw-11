@@ -3,13 +3,14 @@ import "izitoast/dist/css/iziToast.min.css";
 import { renderPhotoTemplate } from './render-function.js';
 
 const refs = {
-  formEL: document.querySelector('.js-search-form')
+  formEL: document.querySelector('.js-search-form'),
+  loaderEl: document.querySelector('.loader')
 }
-
-
+refs.loaderEl.style.display = "none";
 refs.formEL.addEventListener('submit', async (e)=>{
   e.preventDefault()
   const userSubmit = e.target.elements.query.value.trim();
+  refs.loaderEl.style.display = "block";
   getSearchPhotoAPI(userSubmit).then(data => {
     if (!data.hits.length){
       iziToast.show({
@@ -21,9 +22,11 @@ refs.formEL.addEventListener('submit', async (e)=>{
       renderPhotoTemplate(data);
     }
   })
+  .finally(()=> {
+      refs.loaderEl.style.display = "none";
+    })
   e.target.reset()
 })
-
 
 export function getSearchPhotoAPI(userSymbol)  {
   const KEY_API = '42320428-e8ed9ab9e474091db19815d3a'
@@ -33,7 +36,7 @@ export function getSearchPhotoAPI(userSymbol)  {
     q: userSymbol,
     image_type: 'photo',
     orientation: 'horizontal',
-    safesearch: true
+    safesearch: true,
   }
 
   const queryString = new URLSearchParams(listParameters).toString();
