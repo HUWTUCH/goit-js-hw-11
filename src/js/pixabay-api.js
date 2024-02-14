@@ -42,5 +42,8 @@ export function getSearchPhotoAPI(userSymbol)  {
   const queryString = new URLSearchParams(listParameters).toString();
   const BASE_URL = `https://pixabay.com/api?${queryString}`
 
-  return fetch(BASE_URL).then(res=>res.json());
+  return fetch(BASE_URL, {
+    method: "GET",
+    mode: "cors",
+  }).then(res=>res.json());
 }
