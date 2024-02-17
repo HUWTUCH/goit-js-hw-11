@@ -1,13 +1,12 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-
 const refs = {
   formEL: document.querySelector('.js-search-form'),
   listEL: document.querySelector('.gallery'),
 }
 
-function photoTemplate(data) {
+export function photoTemplate(data) {
   const options = {
     captions: true,
     captionSelector: 'img',
@@ -35,8 +34,4 @@ function photoTemplate(data) {
   const lightbox = new SimpleLightbox('.gallery a' , options);
   lightbox.refresh();
   refs.formEL.reset();
-
-}
-export function renderPhotoTemplate(data) {
-  photoTemplate(data)
 }
